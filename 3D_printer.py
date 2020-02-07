@@ -85,16 +85,17 @@ sheet=test_book.sheet_by_index(0)
 biglist=[]
 timer=0
 for x in range(1,sheet.nrows):
+    waittime=0
     be=[]
     for r in range(1,sheet.ncols,2):
         
         if sheet.cell_value(x,r) == '' or sheet.cell_value(x,r+1) == '':
             continue
         if sheet.cell_value(x,r) == 'WAIT' and sheet.cell_value(x,r+1) != '':
-            timer+=sheet.cell_value(x,r+1)
+            waittime+=sheet.cell_value(x,r+1)
             continue
         
-        be.append((sheet.cell_value(x,0),test_location[int((sheet.cell_value(x,0)))-1],sheet.cell_value(x,r),sheet.cell_value(x,r+1),timer))
+        be.append((sheet.cell_value(x,0),test_location[int((sheet.cell_value(x,0)))-1],sheet.cell_value(x,r),sheet.cell_value(x,r+1),waittime))
     if be != []:
         biglist.append(be)
 
@@ -492,17 +493,17 @@ for index in range(len(sortbiglist)):
 #    for y in range(8):
 #      test_location.append((x_positions[y],y_positions[x]))
 
-print(result)
+#print(result)
 #SEND GCODE TO PRINTER
 
-import serial
-ser = serial.Serial('COM4', 115200)
-out = ser.readline()
+#import serial
+#ser = serial.Serial('COM4', 115200)
+#out = ser.readline()
 
 #ser.write(b'G28 \n')
-for i in result:
-    solve=i+' \n'
-    ser.write(str.encode(solve)) 
+#for i in result:
+#    solve=i+' \n'
+#    ser.write(str.encode(solve)) 
 ########################################################################
 
 
