@@ -184,7 +184,6 @@ def dispense(destination,test,Z,energy,result):
     
     result.append(move(x=destination[test][0],y=destination[test][1],z=None,e=None,speed=2000))
     
-
     
                     
     result.append(move(x=None,y=None,z=Z,e=None,speed=1000))
@@ -267,7 +266,7 @@ def wash_time(result):
 
     
     
-def refill(source,beak,amount,result):
+def refill(source,beak,amount,result): #draw certain amount of liquid from stock solution vial (beaker)
     
     mL=conversion(amount)
     result.append(move(x=None,y=None,z=exp_vial_clearance,e=None,speed=1000))
@@ -366,8 +365,9 @@ for index in range(len(sortbiglist)):
         
     #SAME MONOMER AND TIME STAMP GROUPED TOGETHER
     #check is next sequential dispense is the same monomer and time stamp
-    if (sortbiglist[index+1][2]==sortbiglist[index][2] and sortbiglist[index+1][4]==sortbiglist[index+1][4]):
+    if (sortbiglist[index+1][2]==sortbiglist[index][2] and sortbiglist[index+1][4]==sortbiglist[index][4]):
         # look at all subsequent instructions and check for group conditions
+        # Next line asks for the same compound and the same timestamp
         for jndex in range(index+1,len(sortbiglist)):
             
             if (sortbiglist[jndex][2]==sortbiglist[index][2] and sortbiglist[jndex][4]==sortbiglist[index+1][4]):
@@ -507,4 +507,9 @@ for index in range(len(sortbiglist)):
 ########################################################################
 
 
+# output txt
+import os
+with open(os.path.join(os.getcwd(), 'result.txt'), 'w') as f:
+    for e in result:
+        f.write(e + '\n')
     
